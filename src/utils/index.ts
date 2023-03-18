@@ -5,7 +5,7 @@ export const createField = ([width, height]: [number, number]) => {
   const field = rows.map(() =>
     Array(width)
       .fill(null)
-      .map(() => ({ value: 0, isHide: false, mark: '' }))
+      .map(() => ({ value: 0, isHide: true, mark: '' }))
   );
   console.log(field);
 
