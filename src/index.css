@@ -1,0 +1,22 @@
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field__row {
+  display: flex;
+}
+
+.field__ceil {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #000;
+  background-color: #acb0ac;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 1px;
+}
