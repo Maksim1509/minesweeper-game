@@ -17,8 +17,11 @@ const App = () => {
     field.map((row, i) => (
       <div key={i} className="field__row">
         {row.map((cell, i) => (
-          <div key={i} className="field__ceil">
-            {cell}
+          <div
+            key={i}
+            className={`field__ceil ${cell.isHide ? 'hide' : ''} ${cell.mark}`}
+          >
+            {cell.value}
           </div>
         ))}
       </div>
