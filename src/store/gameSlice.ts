@@ -4,10 +4,10 @@ import { createField, getCellsAround } from '../utils';
 import { ICell } from '../types/types';
 import { MINE } from '../constants';
 
-enum Status {
+export enum Status {
   win = 'win',
   lose = 'lose',
-  processed = 'processed',
+  running = 'running',
 }
 
 interface GameState {
@@ -17,7 +17,7 @@ interface GameState {
 }
 
 const initialState = {
-  status: Status.processed,
+  status: Status.running,
   closedCellsCount: 16,
   field: createField([4, 4]),
 } as GameState;
@@ -26,6 +26,12 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    restart(state) {
+      const newField = createField([4, 4]) as ICell[][];
+      state.field = newField;
+      state.closedCellsCount = 16;
+      state.status = Status.running;
+    },
     openCell(state, action: PayloadAction<number[]>) {
       const [y, x] = action.payload;
       if (state.field[y][x].value === MINE) {
@@ -71,5 +77,5 @@ const gameSlice = createSlice({
   },
 });
 
-export const { openCell } = gameSlice.actions;
+export const { openCell, restart } = gameSlice.actions;
 export default gameSlice.reducer;

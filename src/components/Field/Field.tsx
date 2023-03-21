@@ -2,6 +2,7 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { openCell } from '../../store/gameSlice';
 import './Field.scss';
+import HeaderField from './HeaderField/HeaderField';
 
 const Field = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +27,12 @@ const Field = () => {
         ))}
       </div>
     ));
-  return <section className="field">{renderField()}</section>;
+  return (
+    <section className="field">
+      <HeaderField />
+      {renderField()}
+    </section>
+  );
 };
 
 export default Field;
