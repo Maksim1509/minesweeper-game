@@ -1,5 +1,18 @@
 import { MINE } from '../constants';
 
+export const getCellsAround = ([y, x]: [number, number]) => {
+  return {
+    topLeft: [y - 1, x - 1],
+    topCenter: [y - 1, x],
+    topRight: [y - 1, x + 1],
+    midLeft: [y, x - 1],
+    midRight: [y, x + 1],
+    botLeft: [y + 1, x - 1],
+    botCenter: [y + 1, x],
+    botRight: [y + 1, x + 1],
+  };
+};
+
 export const createField = ([width, height]: [number, number]) => {
   const rows: null[] = Array(height).fill(null);
   const field = rows.map(() =>
@@ -15,7 +28,7 @@ export const createField = ([width, height]: [number, number]) => {
     if (field[y][x].value === -1) return;
     field[y][x].value++;
   };
-  const MINE_COUNT = 4;
+  const MINE_COUNT = 3;
   for (let i = 0; i < MINE_COUNT; ) {
     const x = Math.floor(Math.random() * width);
     const y = Math.floor(Math.random() * height);
@@ -23,25 +36,16 @@ export const createField = ([width, height]: [number, number]) => {
     if (field[y][x].value === -1) continue;
     field[y][x].value = MINE;
 
-    const topLeft = [y - 1, x - 1];
-    const topCenter = [y - 1, x];
-    const topRight = [y - 1, x + 1];
+    const aroundCells = getCellsAround([y, x]);
 
-    const midLeft = [y, x - 1];
-    const midRight = [y, x + 1];
-
-    const botLeft = [y + 1, x - 1];
-    const botCenter = [y + 1, x];
-    const botRight = [y + 1, x + 1];
-
-    increment(topLeft);
-    increment(topCenter);
-    increment(topRight);
-    increment(midLeft);
-    increment(midRight);
-    increment(botLeft);
-    increment(botCenter);
-    increment(botRight);
+    increment(aroundCells.topLeft);
+    increment(aroundCells.topCenter);
+    increment(aroundCells.topRight);
+    increment(aroundCells.midLeft);
+    increment(aroundCells.midRight);
+    increment(aroundCells.botLeft);
+    increment(aroundCells.botCenter);
+    increment(aroundCells.botRight);
 
     i += 1;
   }

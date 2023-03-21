@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Field from './components/Field/Field';
+import MainPage from './pages/MainPage/MainPage';
 
 const App = () => (
   <>
-    <Field />
+    <MainPage />
   </>
 );
 
