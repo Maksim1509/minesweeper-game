@@ -10,10 +10,10 @@ const HeaderField = () => {
     dispatch(restart());
   };
   return (
-    <section className="field-header">
+    <section className="header-field">
       <div
-        className={`field-header__icon ${
-          status === Status.lose ? 'field-header__icon_lose' : ''
+        className={`header-field__icon ${
+          status === Status.lose ? 'header-field__icon_lose' : ''
         }`}
         onClick={handleRestart}
       ></div>

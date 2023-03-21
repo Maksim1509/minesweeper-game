@@ -1,10 +1,14 @@
-.field-header__icon {
-  background: url('./running.svg') no-repeat;
-  background-size: cover;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  &_lose {
-    background-image: url('./lose.svg');
+.header-field {
+  border-bottom: 10px solid rgba(128, 128, 128, 0.75);
+  width: 100%;
+  &__icon {
+    background: url('./running.svg') no-repeat;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    &_lose {
+      background-image: url('./lose.svg');
+    }
   }
 }

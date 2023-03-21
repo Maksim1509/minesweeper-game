@@ -37,6 +37,11 @@ const gameSlice = createSlice({
       if (state.field[y][x].value === MINE) {
         state.field[y][x].isHide = false;
         state.status = Status.lose;
+        state.field.forEach((row) =>
+          row.forEach((cell) => {
+            if (cell.value === MINE) cell.isHide = false;
+          })
+        );
         return;
       }
       if (state.field[y][x].value !== 0) {
