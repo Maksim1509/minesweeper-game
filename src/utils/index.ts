@@ -1,4 +1,5 @@
 import { MINE } from '../constants';
+import { IFieldInfo } from '../types/types';
 
 export const getCellsAround = ([y, x]: [number, number]) => {
   return {
@@ -13,7 +14,11 @@ export const getCellsAround = ([y, x]: [number, number]) => {
   };
 };
 
-export const createField = ([width, height]: [number, number]) => {
+export const createField = (fieldInfo: IFieldInfo) => {
+  const {
+    size: [width, height],
+    MINE_COUNT,
+  } = fieldInfo;
   const rows: null[] = Array(height).fill(null);
   const field = rows.map(() =>
     Array(width)
@@ -28,7 +33,7 @@ export const createField = ([width, height]: [number, number]) => {
     if (field[y][x].value === -1) return;
     field[y][x].value++;
   };
-  const MINE_COUNT = 3;
+
   for (let i = 0; i < MINE_COUNT; ) {
     const x = Math.floor(Math.random() * width);
     const y = Math.floor(Math.random() * height);

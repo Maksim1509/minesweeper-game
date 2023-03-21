@@ -2,24 +2,32 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createField, getCellsAround } from '../utils';
 import { ICell } from '../types/types';
-import { MINE } from '../constants';
+import { MINE, MODE } from '../constants';
 
 export enum Status {
   win = 'win',
   lose = 'lose',
   running = 'running',
 }
+export enum Mode {
+  test = 'test',
+  easy = 'easy',
+  medium = 'medium',
+  hard = 'hard',
+}
 
 interface GameState {
   status: Status;
   closedCellsCount: number;
   field: ICell[][];
+  mode: Mode;
 }
 
 const initialState = {
   status: Status.running,
-  closedCellsCount: 16,
-  field: createField([4, 4]),
+  closedCellsCount: MODE[Mode.test].size[0] * MODE[Mode.test].size[1],
+  field: createField(MODE[Mode.test]),
+  mode: Mode.test,
 } as GameState;
 
 const gameSlice = createSlice({
@@ -27,9 +35,18 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     restart(state) {
-      const newField = createField([4, 4]) as ICell[][];
+      const newField = createField(MODE[state.mode]) as ICell[][];
       state.field = newField;
-      state.closedCellsCount = 16;
+      state.closedCellsCount =
+        MODE[state.mode].size[0] * MODE[state.mode].size[1];
+      state.status = Status.running;
+    },
+    changeMode(state, action) {
+      const mode = action.payload as Mode;
+      state.mode = mode;
+      const newField = createField(MODE[mode]) as ICell[][];
+      state.field = newField;
+      state.closedCellsCount = MODE[mode].size[0] * MODE[mode].size[1];
       state.status = Status.running;
     },
     openCell(state, action: PayloadAction<number[]>) {
@@ -75,12 +92,12 @@ const gameSlice = createSlice({
         addToStackToOpen(cellsAround.botRight);
       }
 
-      if (state.closedCellsCount === 3 /* MINE_COUNT */) {
+      if (state.closedCellsCount === MODE[state.mode].MINE_COUNT) {
         state.status = Status.win;
       }
     },
   },
 });
 
-export const { openCell, restart } = gameSlice.actions;
+export const { openCell, restart, changeMode } = gameSlice.actions;
 export default gameSlice.reducer;

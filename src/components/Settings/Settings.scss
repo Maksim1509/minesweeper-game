@@ -1,0 +1,12 @@
+.settings {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  margin-bottom: 10px;
+  &__item {
+    cursor: pointer;
+    &:hover {
+      color: #808080;
+    }
+  }
+}
