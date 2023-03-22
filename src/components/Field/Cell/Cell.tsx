@@ -41,7 +41,7 @@ const Cell = (props: CellProps) => {
       onClick={() => handleClick(y, x)}
       onContextMenu={handleMark(y, x)}
     >
-      {!!cellData.value && cellData.value}
+      {cellData.value > 0 && cellData.value}
       <div className={clsx(hideClass)}>
         {cellData.isHide && cellData.mark === Mark.question && '❓'}
       </div>
