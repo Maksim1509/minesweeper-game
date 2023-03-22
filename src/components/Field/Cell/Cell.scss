@@ -21,6 +21,15 @@
     background: url('./cell.svg') no-repeat;
     background-size: cover;
   }
+  &_flag {
+    background-image: url('./flag.svg');
+  }
+  &_question {
+    background-image: url('./cell.svg');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &_mine {
     background-image: url('./mine.svg');
     background-size: contain;

@@ -1,5 +1,5 @@
 import { MINE } from '../constants';
-import { IFieldInfo } from '../types/types';
+import { IFieldInfo, Mark } from '../types/types';
 
 export const getCellsAround = ([y, x]: [number, number]) => {
   return {
@@ -23,7 +23,7 @@ export const createField = (fieldInfo: IFieldInfo) => {
   const field = rows.map(() =>
     Array(width)
       .fill(null)
-      .map(() => ({ value: 0, isHide: true, mark: '' }))
+      .map(() => ({ value: 0, isHide: true, mark: Mark.none }))
   );
   console.log(field);
 
@@ -56,4 +56,13 @@ export const createField = (fieldInfo: IFieldInfo) => {
   }
 
   return field;
+};
+
+export const changeMark = (mark: Mark): Mark => {
+  const marksMap = {
+    none: Mark.flag,
+    flag: Mark.question,
+    question: Mark.none,
+  };
+  return marksMap[mark];
 };

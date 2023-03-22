@@ -1,6 +1,6 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { createField, getCellsAround } from '../utils';
+import { changeMark, createField, getCellsAround } from '../utils';
 import { ICell } from '../types/types';
 import { MINE, MODE } from '../constants';
 
@@ -96,8 +96,13 @@ const gameSlice = createSlice({
         state.status = Status.win;
       }
     },
+    mark(state, action: PayloadAction<number[]>) {
+      const [y, x] = action.payload;
+      const { mark } = state.field[y][x];
+      state.field[y][x].mark = changeMark(mark);
+    },
   },
 });
 
-export const { openCell, restart, changeMode } = gameSlice.actions;
+export const { openCell, restart, changeMode, mark } = gameSlice.actions;
 export default gameSlice.reducer;
