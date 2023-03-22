@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createField, getCellsAround } from '../utils';
 import { ICell } from '../types/types';
@@ -64,7 +64,6 @@ const gameSlice = createSlice({
       if (state.field[y][x].value !== 0) {
         state.field[y][x].isHide = false;
         state.closedCellsCount -= 1;
-        return;
       }
 
       const stackToOpen: [number, number][] = [[y, x]];
@@ -93,6 +92,7 @@ const gameSlice = createSlice({
       }
 
       if (state.closedCellsCount === MODE[state.mode].MINE_COUNT) {
+        console.log(current);
         state.status = Status.win;
       }
     },

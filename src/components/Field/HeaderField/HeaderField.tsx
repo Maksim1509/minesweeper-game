@@ -9,12 +9,14 @@ const HeaderField = () => {
   const handleRestart = () => {
     dispatch(restart());
   };
+
   return (
     <section className="header-field">
       <div
         className={`header-field__icon ${
           status === Status.lose ? 'header-field__icon_lose' : ''
-        }`}
+        }
+        ${status === Status.win ? 'header-field__icon_win' : ''}`}
         onClick={handleRestart}
       ></div>
     </section>
