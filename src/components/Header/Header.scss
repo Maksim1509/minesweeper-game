@@ -35,3 +35,9 @@
     color: #77824c;
   }
 }
+
+@media screen and (max-width: 620px) {
+  .header {
+    padding: 10px;
+  }
+}

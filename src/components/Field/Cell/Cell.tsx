@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { mark, openCell, Status } from '../../../store/gameSlice';
+import { mark, Mode, openCell, Status } from '../../../store/gameSlice';
 import { ICell, Mark } from '../../../types/types';
 import './Cell.scss';
 
@@ -24,7 +24,7 @@ enum Colors {
 const Cell = (props: CellProps) => {
   const { cellData, x, y } = props;
   const dispatch = useAppDispatch();
-  const { status } = useAppSelector((state) => state.gameInfo);
+  const { status, mode } = useAppSelector((state) => state.gameInfo);
   const handleClick = (y: number, x: number) => {
     if (status === Status.win || status === Status.lose) return;
     dispatch(openCell([y, x]));
@@ -39,6 +39,8 @@ const Cell = (props: CellProps) => {
     cell: true,
     ['cell_mine']: cellData.value === -1,
     [`cell_${Colors[cellData.value]}`]: cellData.value > 0,
+    ['cell_mobile-medium']: mode === Mode.medium,
+    ['cell_mobile-hard']: mode === Mode.hard,
   };
 
   const hideClass = {
