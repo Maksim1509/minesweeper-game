@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { MODE } from '../../../constants';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { Mode, Status, timeOver } from '../../../store/gameSlice';
+import { timeOver } from '../../../store/gameSlice';
 import { parseTime } from './parseTime';
-import './Timer.scss';
 import useTimer from './useTimer';
 
 const Timer = () => {
@@ -13,19 +11,7 @@ const Timer = () => {
   const onTimeOver = () => {
     dispatch(timeOver());
   };
-  // const timeRef = useRef<number>(initTime);
 
-  // useEffect(() => {
-  //   console.log(timeRef.current);
-
-  //   const timerId = setInterval(() => {
-  //     if (status === Status.running) timeRef.current -= 1;
-  //     console.log(timeRef.current);
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(timerId);
-  //   };
-  // }, [timeRef.current, status]);
   const timer = useTimer({ initTime, status, onTimeOver });
   return <section className="timer">{parseTime(timer)}</section>;
 };

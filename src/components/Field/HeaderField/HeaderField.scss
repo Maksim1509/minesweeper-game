@@ -1,10 +1,12 @@
 .header-field {
   display: flex;
   justify-content: center;
+  column-gap: 4px;
   border-bottom: 10px solid rgba(128, 128, 128, 0.75);
   width: 100%;
-  &__mines-count {
-    font-family: Calcucalor;
+  &__mines-count,
+  &__timer {
+    width: 60px;
   }
   &__icon {
     background: url('./running.svg') no-repeat;

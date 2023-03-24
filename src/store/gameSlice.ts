@@ -1,7 +1,7 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { changeMark, createField, getCellsAround } from '../utils';
-import { ICell } from '../types/types';
+import { ICell, Mark } from '../types/types';
 import { MINE, MODE } from '../constants';
 
 export enum Status {
@@ -65,12 +65,14 @@ const gameSlice = createSlice({
       const [y, x] = action.payload;
       if (state.field[y][x].value === MINE) {
         state.field[y][x].isHide = false;
+        state.field[y][x].mark = Mark.none;
         state.status = Status.lose;
         minesShow(state);
         return;
       }
       if (state.field[y][x].value !== 0) {
         state.field[y][x].isHide = false;
+        state.field[y][x].mark = Mark.none;
         state.closedCellsCount -= 1;
       }
 
@@ -87,6 +89,7 @@ const gameSlice = createSlice({
         const [y, x] = stackToOpen.pop() as [number, number];
         if (state.field[y][x].isHide) state.closedCellsCount -= 1;
         state.field[y][x].isHide = false;
+        state.field[y][x].mark = Mark.none;
         if (state.field[y][x].value !== 0) continue;
         const cellsAround = getCellsAround([y, x]);
         addToStackToOpen(cellsAround.topLeft);

@@ -6,12 +6,20 @@
   font-style: normal;
 }
 
+@mixin calc-font {
+  font-family: Calculator, sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  color: red;
+  text-transform: uppercase;
+}
+
 * {
   user-select: none;
 }
 
 body {
-  font-family: sans-serif;
+  @include calc-font();
 }
 
 .container {

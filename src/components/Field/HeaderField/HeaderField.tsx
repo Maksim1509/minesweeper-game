@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import './HeaderField.scss';
 import { restart, Status } from '../../../store/gameSlice';
 import Timer from '../Timer/Timer';
+import MinesCount from '../MinesCount/MinesCount';
 
 const HeaderField = () => {
   const dispatch = useAppDispatch();
@@ -18,9 +19,13 @@ const HeaderField = () => {
   };
   return (
     <section className="header-field">
-      <div className="header-field__mines-count"></div>
+      <div className="header-field__mines-count">
+        <MinesCount />
+      </div>
       <div className={clsx(iconClass)} onClick={handleRestart}></div>
-      <Timer />
+      <div className="header-field__timer">
+        <Timer />
+      </div>
     </section>
   );
 };

@@ -25,7 +25,6 @@ export const createField = (fieldInfo: IFieldInfo) => {
       .fill(null)
       .map(() => ({ value: 0, isHide: true, mark: Mark.none }))
   );
-  console.log(field);
 
   const increment = ([y, x]: number[]) => {
     if (field[y] === undefined) return;
