@@ -10,6 +10,16 @@ interface CellProps {
   x: number;
   y: number;
 }
+enum Colors {
+  blue = 1,
+  green,
+  red,
+  darkblue,
+  brown,
+  turquoise,
+  black,
+  white,
+}
 
 const Cell = (props: CellProps) => {
   const { cellData, x, y } = props;
@@ -28,7 +38,9 @@ const Cell = (props: CellProps) => {
   const cellClass = {
     cell: true,
     ['cell_mine']: cellData.value === -1,
+    [`cell_${Colors[cellData.value]}`]: cellData.value > 0,
   };
+
   const hideClass = {
     ['cell_hide']: cellData.isHide,
     ['cell_flag']: cellData.mark === Mark.flag,

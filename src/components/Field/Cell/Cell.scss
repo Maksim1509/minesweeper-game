@@ -36,4 +36,28 @@
     background-image: url('./mine.svg');
     background-size: contain;
   }
+  &_blue {
+    color: blue;
+  }
+  &_green {
+    color: green;
+  }
+  &_red {
+    color: red;
+  }
+  &_darkblue {
+    color: darkblue;
+  }
+  &_brown {
+    color: brown;
+  }
+  &_turquoise {
+    color: turquoise;
+  }
+  &_black {
+    color: black;
+  }
+  &_white {
+    color: white;
+  }
 }
