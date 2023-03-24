@@ -1,0 +1,37 @@
+.header {
+  width: 100%;
+  padding: 10px 40px;
+  background-color: #424245;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__list {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+    column-gap: 20px;
+    list-style: none;
+  }
+  &__link {
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    &:hover {
+      color: #77824c;
+    }
+  }
+}
+
+.nav__link_active {
+  color: #77824c;
+  cursor: auto;
+  &:hover {
+    color: #77824c;
+  }
+}
