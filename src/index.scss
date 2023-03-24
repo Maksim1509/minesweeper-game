@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Calculator';
+  src: local(Calculator),
+    url('./assets/fonts/Calculator.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 * {
   user-select: none;
 }

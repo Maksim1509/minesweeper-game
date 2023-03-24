@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hooks/hooks';
 import Cell from './Cell/Cell';
 import HeaderField from './HeaderField/HeaderField';
 import './Field.scss';
+import Timer from './Timer/Timer';
 
 const Field = () => {
   const { field } = useAppSelector((state) => state.gameInfo);
@@ -19,6 +20,7 @@ const Field = () => {
   return (
     <section className="field">
       <HeaderField />
+
       {renderField()}
     </section>
   );

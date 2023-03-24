@@ -1,6 +1,11 @@
 .header-field {
+  display: flex;
+  justify-content: center;
   border-bottom: 10px solid rgba(128, 128, 128, 0.75);
   width: 100%;
+  &__mines-count {
+    font-family: Calcucalor;
+  }
   &__icon {
     background: url('./running.svg') no-repeat;
     background-size: cover;

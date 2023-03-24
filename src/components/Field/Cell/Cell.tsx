@@ -16,12 +16,12 @@ const Cell = (props: CellProps) => {
   const dispatch = useAppDispatch();
   const { status } = useAppSelector((state) => state.gameInfo);
   const handleClick = (y: number, x: number) => {
-    if (status !== Status.running) return;
+    if (status === Status.win || status === Status.lose) return;
     dispatch(openCell([y, x]));
   };
   const handleMark = (y: number, x: number) => (e: React.MouseEvent) => {
     e.preventDefault();
-    if (status !== Status.running) return;
+    if (status === Status.win || status === Status.lose) return;
     dispatch(mark([y, x]));
   };
 

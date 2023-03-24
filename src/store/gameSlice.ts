@@ -8,6 +8,7 @@ export enum Status {
   win = 'win',
   lose = 'lose',
   running = 'running',
+  idle = 'idle,',
 }
 export enum Mode {
   test = 'test',
@@ -21,13 +22,22 @@ interface GameState {
   closedCellsCount: number;
   field: ICell[][];
   mode: Mode;
+  timer: number;
 }
 
+const minesShow = (state: GameState) =>
+  state.field.forEach((row) =>
+    row.forEach((cell) => {
+      if (cell.value === MINE) cell.isHide = false;
+    })
+  );
+
 const initialState = {
-  status: Status.running,
+  status: Status.idle,
   closedCellsCount: MODE[Mode.test].size[0] * MODE[Mode.test].size[1],
   field: createField(MODE[Mode.test]),
   mode: Mode.test,
+  timer: MODE[Mode.test].time,
 } as GameState;
 
 const gameSlice = createSlice({
@@ -39,7 +49,7 @@ const gameSlice = createSlice({
       state.field = newField;
       state.closedCellsCount =
         MODE[state.mode].size[0] * MODE[state.mode].size[1];
-      state.status = Status.running;
+      state.status = Status.idle;
     },
     changeMode(state, action) {
       const mode = action.payload as Mode;
@@ -47,18 +57,16 @@ const gameSlice = createSlice({
       const newField = createField(MODE[mode]) as ICell[][];
       state.field = newField;
       state.closedCellsCount = MODE[mode].size[0] * MODE[mode].size[1];
-      state.status = Status.running;
+      state.timer = MODE[mode].time;
+      state.status = Status.idle;
     },
     openCell(state, action: PayloadAction<number[]>) {
+      if (state.status === Status.idle) state.status = Status.running;
       const [y, x] = action.payload;
       if (state.field[y][x].value === MINE) {
         state.field[y][x].isHide = false;
         state.status = Status.lose;
-        state.field.forEach((row) =>
-          row.forEach((cell) => {
-            if (cell.value === MINE) cell.isHide = false;
-          })
-        );
+        minesShow(state);
         return;
       }
       if (state.field[y][x].value !== 0) {
@@ -92,17 +100,22 @@ const gameSlice = createSlice({
       }
 
       if (state.closedCellsCount === MODE[state.mode].MINE_COUNT) {
-        console.log(current);
         state.status = Status.win;
       }
     },
     mark(state, action: PayloadAction<number[]>) {
+      if (state.status === Status.idle) state.status = Status.running;
       const [y, x] = action.payload;
       const { mark } = state.field[y][x];
       state.field[y][x].mark = changeMark(mark);
     },
+    timeOver(state) {
+      state.status = Status.lose;
+      minesShow(state);
+    },
   },
 });
 
-export const { openCell, restart, changeMode, mark } = gameSlice.actions;
+export const { openCell, restart, changeMode, mark, timeOver } =
+  gameSlice.actions;
 export default gameSlice.reducer;
