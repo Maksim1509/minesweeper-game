@@ -1,5 +1,11 @@
-import { MINE } from '../constants';
-import { IFieldInfo, Mark } from '../types/types';
+import { MINE, RESULTS } from '../constants';
+import { IFieldInfo, IResult, Mark } from '../types/types';
+
+export const getLsResults = () => {
+  const storageResults = localStorage.getItem(RESULTS);
+  const results: IResult[] = storageResults ? JSON.parse(storageResults) : [];
+  return results;
+};
 
 export const getCellsAround = ([y, x]: [number, number]) => {
   return {
