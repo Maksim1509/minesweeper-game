@@ -22,7 +22,6 @@ interface GameState {
   closedCellsCount: number;
   field: ICell[][];
   mode: Mode;
-  timer: number;
 }
 
 const minesShow = (state: GameState) =>
@@ -37,7 +36,6 @@ const initialState = {
   closedCellsCount: MODE[Mode.test].size[0] * MODE[Mode.test].size[1],
   field: createField(MODE[Mode.test]),
   mode: Mode.test,
-  timer: MODE[Mode.test].time,
 } as GameState;
 
 const gameSlice = createSlice({
@@ -50,6 +48,7 @@ const gameSlice = createSlice({
       state.closedCellsCount =
         MODE[state.mode].size[0] * MODE[state.mode].size[1];
       state.status = Status.idle;
+      localStorage.setItem('TIME', '0');
     },
     changeMode(state, action) {
       const mode = action.payload as Mode;
@@ -57,7 +56,6 @@ const gameSlice = createSlice({
       const newField = createField(MODE[mode]) as ICell[][];
       state.field = newField;
       state.closedCellsCount = MODE[mode].size[0] * MODE[mode].size[1];
-      state.timer = MODE[mode].time;
       state.status = Status.idle;
     },
     openCell(state, action: PayloadAction<number[]>) {
@@ -112,13 +110,8 @@ const gameSlice = createSlice({
       const { mark } = state.field[y][x];
       state.field[y][x].mark = changeMark(mark);
     },
-    timeOver(state) {
-      state.status = Status.lose;
-      minesShow(state);
-    },
   },
 });
 
-export const { openCell, restart, changeMode, mark, timeOver } =
-  gameSlice.actions;
+export const { openCell, restart, changeMode, mark } = gameSlice.actions;
 export default gameSlice.reducer;

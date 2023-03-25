@@ -1,36 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Status } from '../../../store/gameSlice';
 
-interface IUseTimer {
-  initTime: number;
-  status: Status;
-  onTimeOver: () => void;
-}
-
-const useTimer = (params: IUseTimer) => {
-  const { initTime, status, onTimeOver } = params;
-  const [time, setTime] = useState(() => initTime);
+const useTimer = (status: Status) => {
+  const [time, setTime] = useState(0);
   const [timerId, setTimerId] = useState<number>();
 
   const startTimer = () => {
     const id = setTimeout(() => {
-      if (time === 0) {
-        onTimeOver();
-        return;
-      }
-      setTime((prev) => prev - 1);
+      setTime((prev) => prev + 1);
     }, 1000);
     setTimerId(id);
   };
 
   useEffect(() => {
-    if (status === Status.idle) setTime(() => initTime);
-  }, [initTime, status]);
-
-  useEffect(() => {
+    if (status === Status.idle) setTime(0);
     if (status === Status.running) startTimer();
-    return () => clearTimeout(timerId);
-  }, [time, initTime, status]);
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [time, status]);
   return time;
 };
 

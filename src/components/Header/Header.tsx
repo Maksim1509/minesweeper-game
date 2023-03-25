@@ -11,7 +11,7 @@ const Header = () => (
       <ul className="nav__list">
         <li className="nav__item">
           <NavLink to={'/'} className={setActive}>
-            Home
+            Game
           </NavLink>
         </li>
         <li className="nav__item">
