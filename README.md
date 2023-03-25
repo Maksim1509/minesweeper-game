@@ -13,8 +13,8 @@ npm run dev
 ```
 
 ## technology stack
-TypeScript
-React + Redux Tool Kit
-Reacr router dom
-Vite
-SCSS
+- TypeScript
+- React + Redux Tool Kit
+- React router dom
+- Vite
+- SCSS
